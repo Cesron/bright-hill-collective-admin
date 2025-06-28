@@ -1,4 +1,4 @@
-import postgres from "postgres";
+import postgres from "postgres"
 
 export const sql = postgres({
   host: process.env.POSTGRES_HOST,
@@ -6,4 +6,4 @@ export const sql = postgres({
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-});
+})

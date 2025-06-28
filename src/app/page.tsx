@@ -1,7 +1,7 @@
-import { sql } from "@/lib/sql";
+import { sql } from "@/lib/sql"
 
 export default async function Home() {
-  const users = await sql`SELECT * FROM users`;
+  const users = await sql`SELECT * FROM users`
 
   return (
     <div>
@@ -9,5 +9,5 @@ export default async function Home() {
         <code>{JSON.stringify(users, null, 2)}</code>
       </pre>
     </div>
-  );
+  )
 }
