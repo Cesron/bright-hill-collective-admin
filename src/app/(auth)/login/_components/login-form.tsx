@@ -1,6 +1,7 @@
 "use client"
 
 import { useLoginForm } from "../_hooks/use-login-form"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -15,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 export function LoginForm() {
-  const { form, onSubmit } = useLoginForm()
+  const { form, onSubmit, isVisible, toggleVisibility } = useLoginForm()
 
   return (
     <Form {...form}>
@@ -56,9 +57,29 @@ export function LoginForm() {
                   Forgot your password?
                 </Link>
               </div>
-              <FormControl>
-                <Input id="password" type="password" {...field} />
-              </FormControl>
+              <div className="relative">
+                <FormControl>
+                  <Input
+                    id="password"
+                    className="pe-9"
+                    type={isVisible ? "text" : "password"}
+                    {...field}
+                  />
+                </FormControl>
+
+                <Button
+                  size="icon"
+                  type="button"
+                  variant="ghost"
+                  className="text-muted-foreground/80 hover:text-foreground absolute inset-y-0 end-0 rounded-l-none hover:bg-transparent"
+                  onClick={toggleVisibility}
+                  aria-label={isVisible ? "Hide password" : "Show password"}
+                  aria-pressed={isVisible}
+                  aria-controls="password"
+                >
+                  {isVisible ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
+                </Button>
+              </div>
               <FormMessage />
             </FormItem>
           )}
