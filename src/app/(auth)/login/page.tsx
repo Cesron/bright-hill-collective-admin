@@ -1,4 +1,5 @@
 import { LoginForm } from "./_components/login-form"
+import { Metadata } from "next"
 
 import {
   Card,
@@ -7,6 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
+export const metadata: Metadata = {
+  title: "Login - Bright Hill Collective Admin",
+  description: "Login to your account",
+}
 
 export default function Page() {
   return (
