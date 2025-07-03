@@ -1,17 +1,41 @@
 import { UserTokens } from "@/types/user"
 
-export async function verifyAccessToken(
+const baseUrl = process.env.SITE_URL
+
+export async function verifyTokens(
   accessToken: string | undefined,
   refreshToken: string | undefined,
 ) {
-  if (!accessToken || !refreshToken) {
+  const response = await fetch(`${baseUrl}/api/auth/verify`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ accessToken }),
+  })
+
+  if (response.ok) {
+    return true
+  }
+
+  if (response.status !== 401) {
     return false
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  console.log("Access token is invalid, attempting to refresh")
 
-  return {
-    accessToken,
-    refreshToken,
-  } as UserTokens
+  const refreshResponse = await fetch(`${baseUrl}/api/auth/refresh`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ refreshToken }),
+  })
+
+  if (!refreshResponse.ok) {
+    return false
+  }
+
+  const data = await refreshResponse.json()
+  return data as UserTokens
 }

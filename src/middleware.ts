@@ -1,4 +1,4 @@
-import { verifyAccessToken } from "@/helpers/verify-access-token"
+import { verifyTokens } from "@/helpers/verify-access-token"
 import { NextRequest, NextResponse } from "next/server"
 
 const noAuthRoutes = ["/login", "/forgot-password", "/reset-password"]
@@ -14,7 +14,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  const verify = await verifyAccessToken(accessToken, refreshToken)
+  const verify = await verifyTokens(accessToken, refreshToken)
 
   const isUserTokens =
     verify &&
@@ -27,14 +27,12 @@ export default async function middleware(req: NextRequest) {
     response.cookies.set("access_token", verify.accessToken, {
       httpOnly: true,
       expires: new Date(Date.now() + FIFTEEN_MINUTES),
-      path: "/",
       secure: process.env.NODE_ENV === "production",
     })
 
     response.cookies.set("refresh_token", verify.refreshToken, {
       httpOnly: true,
       expires: new Date(Date.now() + SEVEN_DAYS),
-      path: "/",
       secure: process.env.NODE_ENV === "production",
     })
 

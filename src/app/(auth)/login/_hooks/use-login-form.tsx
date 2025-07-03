@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
+import { loginAction } from "../_lib/login-action"
 import { loginSchema, LoginValues } from "../_lib/login-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -19,8 +20,8 @@ export function useLoginForm() {
     },
   })
 
-  function onSubmit(data: LoginValues) {
-    console.log("Form submitted with data:", data)
+  async function onSubmit(data: LoginValues) {
+    await loginAction(data)
   }
 
   return { form, onSubmit, isVisible, toggleVisibility }
