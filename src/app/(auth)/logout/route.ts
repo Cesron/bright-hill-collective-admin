@@ -9,16 +9,12 @@ export async function GET() {
 
   const accessToken = cookieStore.get("access_token")
 
-  console.log("Access Token:", accessToken)
-
   if (!accessToken) {
     return redirect("/login")
   }
 
   const decoded = decode(accessToken.value) as { jti: string }
   const jti = decoded?.jti || ""
-
-  console.log("Decoded Access Token:", decoded)
 
   await sql`DELETE FROM user_logins WHERE access_jti = ${jti}`
 

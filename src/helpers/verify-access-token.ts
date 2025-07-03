@@ -22,8 +22,6 @@ export async function verifyTokens(
     return false
   }
 
-  console.log("Access token is invalid, attempting to refresh")
-
   const refreshResponse = await fetch(`${baseUrl}/api/auth/refresh`, {
     method: "POST",
     headers: {
