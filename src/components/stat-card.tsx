@@ -25,7 +25,7 @@ export const StatCard = ({ count = 0, label, icon, type }: StatCardProps) => {
             "red-glow": type === "overdue",
           })}
         />
-        <h2 className="text-2xl font-bold text-white">{count}</h2>
+        <h2 className="text-3xl font-bold text-white">{count}</h2>
       </div>
 
       <p className="mt-6">{label}</p>
