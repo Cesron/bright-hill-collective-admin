@@ -16,7 +16,8 @@ import {
 import { Input } from "@/components/ui/input"
 
 export function LoginForm() {
-  const { form, onSubmit, isVisible, toggleVisibility } = useLoginForm()
+  const { form, onSubmit, isVisible, toggleVisibility, loading } =
+    useLoginForm()
 
   return (
     <Form {...form}>
@@ -85,7 +86,7 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" loading={loading}>
           Login
         </Button>
       </form>
